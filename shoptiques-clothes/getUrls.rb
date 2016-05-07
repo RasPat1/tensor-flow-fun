@@ -45,11 +45,11 @@ categories.each do |catName|
 
   namecode = results.first["name_code"]
 
-  unless File.directory?(namecode)
-    FileUtils.mkdir_p(namecode)
+  unless File.directory?("images/#{namecode}")
+    FileUtils.mkdir_p("images/#{namecode}")
   end
 
-  filename = "#{namecode}/urls.txt"
+  filename = "images/#{namecode}/urls.txt"
   file = File.new(filename, 'w')
 
   results.each do |row|
