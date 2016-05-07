@@ -21,8 +21,9 @@ client = Mysql2::Client.new(:host => @db_host,
 # not enough in each category
 categories = ["Clothing", "Home & Gifts", "Shoes", "Accessories", "Bags"]
 cat_level = 1
-image_count_per_cat = 10
+image_count_per_cat = 1000
 url_prefix = ENV["S3_PREFIX"]
+url_suffix = "_s.jpg"
 
 categories.each do |catName|
   query = "select p.date_created, pc.name_code, i.filename from product p
@@ -43,18 +44,21 @@ categories.each do |catName|
   results = client.query(query)
 
   namecode = results.first["name_code"]
-  dir = File.dirname(namecode)
-  unless File.directory?(dir)
-    FileUtils.mkdir_p(dir)
+
+  unless File.directory?(namecode)
+    FileUtils.mkdir_p(namecode)
   end
 
-  filename = "urls.txt"
+  filename = "#{namecode}/urls.txt"
   file = File.new(filename, 'w')
 
   results.each do |row|
-    url = url_prefix + row["filename"]
+    url = url_prefix + row["filename"] + url_suffix
     file.write(url + "\n")
   end
 end
 
 client.close
+
+
+
