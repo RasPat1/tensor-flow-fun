@@ -43,6 +43,10 @@ categories.each do |catName|
 
   results = client.query(query)
 
+  unless File.directory?("images")
+    FileUtils.mkdir_p("images")
+  end
+
   namecode = results.first["name_code"]
 
   unless File.directory?("images/#{namecode}")
