@@ -5,6 +5,7 @@ Steps
 1. Then run bash script to download images
 1. Use Tensorflow to build training and testing sets in TFRecord format
 
+Use ```system_profiler SPDisplaysDataType``` to see if gpu is CUDA enabled and if it is imay want to try and build TF with cuda support
 Currently usinig highest level categories but goal is to have high success on second level categories
 
 TF needs the folder structure to be ```LABEL_NAME/IMAGE_NAME```
