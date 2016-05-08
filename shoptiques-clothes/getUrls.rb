@@ -20,7 +20,7 @@ client = Mysql2::Client.new(:host => @db_host,
 # not enough in each category
 categories = ["Clothing", "Home & Gifts", "Shoes", "Accessories", "Bags"]
 cat_level = 1
-image_count_per_cat = 1000
+image_count_per_cat = 5000
 url_prefix = ENV["S3_PREFIX"]
 url_suffix = "_s.jpg"
 
@@ -37,6 +37,8 @@ categories.each do |catName|
     join product_category pc
       on c.cat_1 = pc.name
     where c.cat_1 = \"#{catName}\"
+    and p.date_created < '2015-04-01'
+    and p.boutique_provided_photos = 'N'
     order by p.date_created desc
     limit #{image_count_per_cat}"
 
