@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-
 require "mysql2"
 require "fileutils"
 
